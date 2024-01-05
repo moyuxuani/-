@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 自适应不允许移动端缩放 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <!-- 设置不要缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 结束 -->
+    <title>联系我们</title>
+    <style>
+    html{background-color: rgb(255, 255, 255);}
+    .zhd{position: fixed;top: 0;}
+    body{margin: 0;}
+    a{color: #22A0F0;
+    text-decoration: none;}
+    h5{margin: 10px;}
+    ul{width: auto;word-wrap: break-word;padding-inline-start: 20px;font-size: 16PX;margin: 10px;}
+    .D{font-size: 13px;text-align: center;position: fixed;bottom: 1%;width: 100%;color: #00000029;}
+    </style>
+
+</head>
+<body>
+    
+<canvas id="cvs" style="background-color: rgb(255, 255, 255);"></canvas>
+
+<div class="zhd">
+
+<img src="https://cdn.vm.huluxia.com/virtual/2023-12-15/image/202312151702663161.png" style="width: 100%;height: 100%;">
+
+<!--<H1>联系我们</H1>-->
+
+<h5 style="color: #a7a7a7;">亲，遇到问题请加入对应问题解决群~</h5>
+
+<ul>
+<li><h4>官方交流1群</h4></li>
+<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Y0bh3Jpivy1Q-mMxjSWTRqlBktsoFWWl&authKey=q2cBrrMPSasPr%2FOUT02E6ron3d13fCtUTDw6DjrAz3w%2Fxv%2Fm8WXvJaSdlZXyzdvW&noverify=0&group_code=274509151"><img src="https://cdn.vm.huluxia.com/virtual/2023-11-30/image/202311301701415119.png" width="20" height="20"/>&nbsp加入【葫芦侠虚拟机】官方1群</a>
+
+
+<li><h4>BUG反馈群</h4></li>
+<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=UvXP4XYi13xz0onusBtfnpjBwN2w9teg&authKey=adpZCpYdulfvY1QHF1PU%2FYLeY%2FvvitBpn6G1RkQhxTDxkiqpL2OZeNrQdFiswOai&noverify=0&group_code=487567260"><img src="https://cdn.vm.huluxia.com/virtual/2023-11-30/image/202311301701415119.png" width="20" height="20"/>&nbsp加入【葫芦侠虚拟机】BUG反馈群</a>
+
+<li><h4>安卓12、13系统卡死解决群 / 虚拟机无法启动解决群</h4></li>
+<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=5aYfdYIEXd9CUe0J2aP7nQU7cDspb9AP&authKey=A31fyasOVStLyIzOcsIG7KmIfWrsOfCr0b7dk%2BnWxK3vtZAa5V4HhyflZBVsX%2BEq&noverify=0&group_code=286376437"><img src="https://cdn.vm.huluxia.com/virtual/2023-11-30/image/202311301701415119.png" width="20" height="20"/>&nbsp加入【葫芦侠虚拟机】安卓12、13系统卡死解决群 / 虚拟机无法启动解决群</a>
+
+<li><h4>QQ频道</h4></li>
+<a href="https://pd.qq.com/s/4x2y9yigd"><img src="https://cdn.vm.huluxia.com/virtual/2023-11-30/image/202311301701415119.png" width="20" height="20"/>&nbsp加入 【葫芦侠虚拟机】QQ频道</a>
+
+
+</ul>
+
+</div>
+
+<div class="D">我是一条底线</div>
+
+</body>
+
+<script>
+	const cvs = document.querySelector('#cvs')
+	const ctx = cvs.getContext('2d')
+	const {clientWidth:width, clientHeight:height} = document.documentElement
+	cvs.width = width
+	cvs.height = height
+    //颜色
+	ctx.fillStyle = '#dff1fb'
+    //数量
+	const bgColors = Array.from(new Array(400)).map(v => {
+		return {
+			x: Math.random() * width,
+			y: Math.random() * height,
+            
+			step: Math.random() * 8.0 + 0.5
+		}
+	})
+
+	let colors = []
+	const sendText = (text, fontSize = 100, stepV = 40) => {
+		ctx.fillStyle = '#000000'
+		ctx.fillRect(0, 0, width, height)
+		ctx.font = `bold ${fontSize}px 微软雅黑`
+		ctx.fillStyle = '#ffffff'
+		ctx.textAlign = 'center'
+		ctx.textBaseline = 'middle'
+		ctx.fillText(text, width / 2, height / 2)
+		const data = ctx.getImageData(0, 0, width, height).data
+
+		let index = 0
+		let bl = 4
+		let useIndex = 0
+		for(let i=0;i<data.length;i+=4) {
+			const x = index % width
+			const y = Math.ceil(index / width)
+			if (x%bl === 0 && y%bl === 0 && data[i] === 255 &&data[i+1] === 255 &&data[i+2] === 255) {
+				const rx = Math.floor(Math.random() * fontSize) + width / 2 - fontSize / 2
+				const ry = Math.floor(Math.random() * fontSize) + height / 2 - fontSize / 2
+
+				const item = colors[useIndex]
+				if (item) {
+					colors[useIndex] = {
+						x,
+						y,
+						rx: item.x,
+						ry: item.y,
+						stepX: Math.abs(item.x - x) / stepV,
+						stepY: Math.abs(item.y - y) / stepV
+					}
+				} else {
+					colors[useIndex] = {
+						x,
+						y,
+						rx,
+						ry,
+						stepX: Math.abs(rx - x) / stepV,
+						stepY: Math.abs(ry - y) / stepV
+					}
+				}
+				useIndex++
+			}
+			index++
+		}
+		if (useIndex < colors.length) {
+			colors.splice(useIndex, colors.length - useIndex)
+		}
+	}
+	
+	const render = () => {
+		ctx.clearRect(0, 0, width, height)
+		ctx.beginPath()
+		colors.forEach(v => {
+			if (v.rx > v.x) {
+				v.rx -= v.stepX
+				if (v.rx < v.x) {
+					v.rx = v.x
+				}
+			} else if (v.rx < v.x) {
+				v.rx += v.stepX
+				if (v.rx > v.x) {
+					v.rx = v.x
+				}
+			}
+
+			if (v.ry > v.y) {
+				v.ry -= v.stepY
+				if (v.ry < v.y) {
+					v.ry = v.y
+				}
+			} else if (v.ry < v.y) {
+				v.ry += v.stepY
+				if (v.ry > v.y) {
+					v.ry = v.y
+				}
+			}
+			ctx.rect(v.rx, v.ry, 3, 3)
+		})
+		bgColors.forEach(v => {
+			v.y = v.y > height ? 0 : (v.y + v.step)
+			ctx.rect(v.x, v.y, 3, 3)
+		})
+		
+		ctx.fill()
+		requestAnimationFrame(render)
+	}
+	render()
+	const awaitSendText = async (txt, fontSize, stepV) => {
+		return new Promise(resolve => {
+			sendText(txt, fontSize, stepV)
+			colors.sort(v => Math.random() - 0.5)
+			setTimeout(() => resolve(), 2000 + (stepV > 40 ? 1000 : 0))
+		})
+	}
+</script>
+
+</html>
